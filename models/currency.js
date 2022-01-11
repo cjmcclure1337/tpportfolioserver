@@ -1,11 +1,11 @@
 module.exports = (sequelize, DataTypes) => {
-    const Stock = sequelize.define("Stock", {
-        symbol: {
+    const Currency = sequelize.define("Currency", {
+        code: {
             type: DataTypes.STRING,
             allowNull: false
         },
         quantity: {
-            type: DataTypes.INTEGER,
+            type: DataTypes.DOUBLE,
             allowNull: false
         },
         purchasePrice: {
@@ -15,5 +15,5 @@ module.exports = (sequelize, DataTypes) => {
     })
 
 
-    return Stock
+    return Currency
 }
