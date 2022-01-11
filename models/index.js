@@ -21,13 +21,24 @@ sequelize.authenticate()
 
 const db = {};
 db.sequelize = sequelize;
-//db.Currency = require('./currencyModel')(sequelize, DataTypes)
+db.User = require('./users')(sequelize, DataTypes)
+db.Stock = require('./stocks')(sequelize, DataTypes)
 
 // sync the db by running the model
-db.sequelize.sync({ force: false }).then(() => {
+db.sequelize.sync({ force: true }).then(() => {
     console.log('DB synced with sequelize')
 }).catch((error) => {
     console.log('Error syncing the DB to sequelize: ' + error)
 })
+
+db.User.hasMany(db.Stock, {
+    onDelete: "cascade"
+})
+
+db.Stock.belongsTo(db.User, {
+    foreignKey: {
+        allowNull: true
+    }
+});
 
 module.exports = db
