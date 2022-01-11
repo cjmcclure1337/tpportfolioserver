@@ -1,47 +1,28 @@
 const express = require('express');
 const router = express.Router();
 const db = require("../models")
+const userController = require("../controllers/userController");
+const positionController = require("../controllers/positionController")
 
 //POST new user by userID
-router.post("/", (req, res) => {
-  db.User.create({
-    Id: req.body.userId
-  })
-  .then(newUser => res.send(newUser))
-})
+router.post("/", userController.addUser)
 
 //GET positions for all users
-router.get('/', function(req, res, next) {
-  db.User.findAll({
-    include: [db.Stock, db.Currency]
-  }).then(allUsers => res.send(allUsers))
-});
+router.get('/', userController.getAllUsers);
 
 //GET positions for specific user by userID
-router.get('/:id', function(req, res, next) {
-    res.send("Retrieving positions for user: " + req.params.id);
-});
+router.get('/:id', userController.getUser);
 
 //POST new stock position
 router.post("/:id/", (req, res) => {
   switch(req.body.type.toLowerCase()) {
     
     case "stock":
-      db.Stock.create({
-        symbol: req.body.symbol,
-        quantity: req.body.quantity,
-        purchasePrice: 100,
-        UserId: req.params.id
-      }).then(newStockPosition => res.send(newStockPosition))
+      positionController.addStock(req, res);
       break;
     
     case "currency":
-      db.Currency.create({
-        code: req.body.code,
-        quantity: req.body.quantity,
-        purchasePrice: 1,
-        UserId: req.params.id
-      }).then(newCurrencyPosition => res.send(newCurrencyPosition))
+      positionController.addCurrency(req, res);
       break;
     case "cd":
       break;
