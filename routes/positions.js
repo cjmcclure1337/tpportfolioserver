@@ -41,6 +41,37 @@ router.post("/:id/", (req, res) => {
       break;
   }
 })
+
+//DELETE specific investment position
+router.delete("/:id", (req, res) => {
+  switch(req.body.type.toLowerCase()) {
+    
+    case "stock":
+      positionController.removeStock(req, res);
+      break;
+    
+    case "currency":
+      positionController.removeCurrency(req, res);
+      break;
+
+    case "cd":
+      //TBD
+      console.log("Invalid type CD");
+      res.send("Invalid Type")
+      break;
+
+    case "mutualfund":
+      //TBD
+      console.log("Invalid type Mutual Fund");
+      res.send("Invalid Type")
+      break;
+
+    default:
+      console.log("Invalid type");
+      res.send("Invalid Type")
+      break;
+  }
+})
   
 
 module.exports = router;

@@ -7,7 +7,8 @@ const addStock = (req, res) => {
         quantity: req.body.quantity,
         purchasePrice: 100,
         UserId: req.params.id
-      }).then(newStockPosition => res.send(newStockPosition))
+      })
+        .then(newStockPosition => res.send(newStockPosition))
 }
 
 const addCurrency = (req, res) => {
@@ -16,12 +17,35 @@ const addCurrency = (req, res) => {
         quantity: req.body.quantity,
         purchasePrice: 1,
         UserId: req.params.id
-      }).then(newCurrencyPosition => res.send(newCurrencyPosition))
+      })
+        .then(newCurrencyPosition => res.send(newCurrencyPosition))
+}
+
+const removeStock = (req, res) => {
+    db.Stock.destroy({
+        where: {
+            UserId: req.params.id,
+            id: req.body.id
+        }
+    })
+        .then(() => res.send("Removed stock"))
+}
+
+const removeCurrency = (req, res) => {
+    db.Currency.destroy({
+        where: {
+            UserId: req.params.id,
+            id: req.body.id
+        }
+    })
+        .then(() => res.send("Removed currency"))
 }
 
 
 
 module.exports = {
     addStock,
-    addCurrency
+    addCurrency,
+    removeStock,
+    removeCurrency
 }
