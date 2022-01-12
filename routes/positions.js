@@ -2,7 +2,8 @@ const express = require('express');
 const router = express.Router();
 const db = require("../models")
 const userController = require("../controllers/userController");
-const positionController = require("../controllers/positionController")
+const positionController = require("../controllers/positionController");
+const { route } = require('.');
 
 //POST new user by userID
 router.post("/", userController.addUser)
@@ -72,6 +73,6 @@ router.delete("/:id", (req, res, next) => {
       break;
   }
 })
-  
+
 
 module.exports = router;
