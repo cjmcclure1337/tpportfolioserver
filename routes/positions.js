@@ -13,7 +13,7 @@ router.get('/', userController.getAllUsers);
 //GET positions for specific user by userID
 router.get('/:id', userController.getUser);
 
-//POST new stock position
+//POST new investment position
 router.post("/:id/", (req, res) => {
   switch(req.body.type.toLowerCase()) {
     
@@ -24,12 +24,20 @@ router.post("/:id/", (req, res) => {
     case "currency":
       positionController.addCurrency(req, res);
       break;
+
     case "cd":
+      //TBD
+      console.log("Invalid type");
       break;
+
     case "mutualfund":
+      //TBD
+      console.log("Invalid type");
       break;
+
     default:
       console.log("Invalid type");
+      res.send("Invalid Type")
       break;
   }
 })

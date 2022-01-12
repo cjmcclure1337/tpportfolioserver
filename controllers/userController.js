@@ -15,7 +15,10 @@ const getAllUsers = (req, res) => {
 }
 
 const getUser = (req, res) => {
-    res.send("Retrieving positions for user: " + req.params.id);
+    db.User.findOne({
+        where: {Id: req.params.id},
+        include: [db.Stock, db.Currency]
+    }).then(user => res.send(user))
 }
 
 
