@@ -1,5 +1,6 @@
 const db = require("../models")
 const requestify = require("requestify")
+const links = require("../config/externalLinks")
 
 
 const addStock = (req, res, next) => {
@@ -17,7 +18,7 @@ const addStock = (req, res, next) => {
 }
 
 const addCurrency = (req, res) => {
-    requestify.get('https://forex-server.herokuapp.com/currency/' + req.body.code)
+    requestify.get(links.currencyAPI + req.body.code)
         .then((response) => {
             const currency = response.getBody();
             db.Currency.create({
