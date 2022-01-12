@@ -38,7 +38,7 @@ db.User.hasMany(db.Stock, {
 
 db.Stock.belongsTo(db.User, {
     foreignKey: {
-        allowNull: true
+        allowNull: false
     }
 });
 
@@ -48,7 +48,7 @@ db.User.hasMany(db.Currency, {
 
 db.Currency.belongsTo(db.User, {
     foreignKey: {
-        allowNull: true
+        allowNull: false
     }
 });
 

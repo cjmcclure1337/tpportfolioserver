@@ -14,15 +14,15 @@ router.get('/', userController.getAllUsers);
 router.get('/:id', userController.getUser);
 
 //POST new investment position
-router.post("/:id/", (req, res) => {
+router.post("/:id/", (req, res, next) => {
   switch(req.body.type.toLowerCase()) {
     
     case "stock":
-      positionController.addStock(req, res);
+      positionController.addStock(req, res, next);
       break;
     
     case "currency":
-      positionController.addCurrency(req, res);
+      positionController.addCurrency(req, res, next);
       break;
 
     case "cd":
@@ -43,15 +43,15 @@ router.post("/:id/", (req, res) => {
 })
 
 //DELETE specific investment position
-router.delete("/:id", (req, res) => {
+router.delete("/:id", (req, res, next) => {
   switch(req.body.type.toLowerCase()) {
     
     case "stock":
-      positionController.removeStock(req, res);
+      positionController.removeStock(req, res, next);
       break;
     
     case "currency":
-      positionController.removeCurrency(req, res);
+      positionController.removeCurrency(req, res, next);
       break;
 
     case "cd":

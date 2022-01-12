@@ -1,7 +1,7 @@
 const db = require("../models")
 
 
-const addStock = (req, res) => {
+const addStock = (req, res, next) => {
     db.Stock.create({
         symbol: req.body.symbol,
         quantity: req.body.quantity,
@@ -9,6 +9,10 @@ const addStock = (req, res) => {
         UserId: req.params.id
       })
         .then(newStockPosition => res.send(newStockPosition))
+        .catch(err => {
+            res.status(400);
+            res.send(err);
+        });
 }
 
 const addCurrency = (req, res) => {
@@ -19,6 +23,10 @@ const addCurrency = (req, res) => {
         UserId: req.params.id
       })
         .then(newCurrencyPosition => res.send(newCurrencyPosition))
+        .catch(err => {
+            res.status(400);
+            res.send(err);
+        });
 }
 
 const removeStock = (req, res) => {
@@ -28,7 +36,17 @@ const removeStock = (req, res) => {
             id: req.body.id
         }
     })
-        .then(() => res.send("Removed stock"))
+        .then((countDeleted) => {
+            if(countDeleted === 0) {
+                res.status(400);
+                res.send("No such record found")
+            }
+            res.send("Removed stock")
+        })
+        .catch(err => {
+            res.status(400);
+            res.send(err);
+        });
 }
 
 const removeCurrency = (req, res) => {
@@ -38,7 +56,17 @@ const removeCurrency = (req, res) => {
             id: req.body.id
         }
     })
-        .then(() => res.send("Removed currency"))
+    .then((countDeleted) => {
+        if(countDeleted === 0) {
+            res.status(400);
+            res.send("No such record found")
+        }
+        res.send("Removed currency")
+    })
+        .catch(err => {
+            res.status(400);
+            res.send(err);
+        });
 }
 
 
