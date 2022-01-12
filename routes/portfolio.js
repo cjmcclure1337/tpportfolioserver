@@ -2,11 +2,13 @@ const express = require('express');
 const router = express.Router();
 const db = require("../models");
 const requestify = require ("requestify")
+const portfolioController = require("../controllers/portfolioController");
 
-/* GET home page. */
-router.get('/', function(req, res, next) {
-  res.send("Portfolio routing");
-});
+//GET full portfolio for all users
+router.get('/', portfolioController.getAllPortfolios);
+
+//GET full portfolio for all users
+router.get('/:id', portfolioController.getPortfolio);
 
 router.get("/test", (req, res) => {
   requestify.get('https://forex-server.herokuapp.com/currency')
