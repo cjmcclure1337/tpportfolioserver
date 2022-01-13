@@ -1,0 +1,65 @@
+[33mcommit 7239e180dfb039eb8902ca3150b9c5b850787b28[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m)[m
+Author: CJMcClure <cjmcclure1337@gmail.com>
+Date:   Wed Jan 12 14:51:51 2022 -0600
+
+    Added portfolio controller
+
+[33mcommit 34de7837b31b93cf01e28fe5d67d8d5cf8ec77e4[m
+Author: CJMcClure <cjmcclure1337@gmail.com>
+Date:   Wed Jan 12 14:46:10 2022 -0600
+
+    Seperated external links into config file
+
+[33mcommit e271dc7e44f007a877a0b3bd91a6fc44334346a5[m
+Author: CJMcClure <cjmcclure1337@gmail.com>
+Date:   Wed Jan 12 14:36:31 2022 -0600
+
+    POST currency pulls price from API
+
+[33mcommit 6078462bd769eedd7f79d0e359593da66920cdb6[m
+Author: CJMcClure <cjmcclure1337@gmail.com>
+Date:   Wed Jan 12 13:43:34 2022 -0600
+
+    Error handling
+
+[33mcommit 78a14d2ba99886e8a54e10b5f0fc73319832b92f[m
+Author: CJMcClure <cjmcclure1337@gmail.com>
+Date:   Wed Jan 12 11:42:15 2022 -0600
+
+    Remove individual investments
+
+[33mcommit 3cac464fbbe62a4080ff74b44a4ea60212dee5f2[m
+Author: CJMcClure <cjmcclure1337@gmail.com>
+Date:   Wed Jan 12 11:15:15 2022 -0600
+
+    GET single user
+
+[33mcommit 3d4382f2858d296593175079d468ad8e5183dad4[m
+Author: CJMcClure <cjmcclure1337@gmail.com>
+Date:   Tue Jan 11 15:02:49 2022 -0600
+
+    Added controllers and organized code
+
+[33mcommit b9a50e798aa728360e1f42f775a6ca9b2816dba3[m
+Author: CJMcClure <cjmcclure1337@gmail.com>
+Date:   Tue Jan 11 14:00:38 2022 -0600
+
+    Added currency model and associations
+
+[33mcommit 7e0611e1a57e6193528877dc77951c54eaba03b4[m
+Author: CJMcClure <cjmcclure1337@gmail.com>
+Date:   Tue Jan 11 09:50:22 2022 -0600
+
+    Sequelize association successfully established
+
+[33mcommit afd8cd1428488b3af49c558565a44b2e1cf86090[m
+Author: CJMcClure <cjmcclure1337@gmail.com>
+Date:   Fri Jan 7 15:30:36 2022 -0600
+
+    Server connection and basic routes
+
+[33mcommit f21d5cb661a3d140453c1862f7cafb5afe35464f[m
+Author: CJMcClure <cjmcclure1337@gmail.com>
+Date:   Fri Jan 7 14:03:18 2022 -0600
+
+    Express generator

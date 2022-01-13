@@ -7,7 +7,7 @@ const portfolioController = require("../controllers/portfolioController");
 //GET full portfolio for all users
 router.get('/', portfolioController.getAllPortfolios);
 
-//GET full portfolio for all users
+//GET full portfolio for one user
 router.get('/:id', portfolioController.getPortfolio);
 
 router.get("/test", (req, res) => {
