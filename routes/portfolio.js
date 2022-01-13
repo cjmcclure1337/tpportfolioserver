@@ -10,12 +10,4 @@ router.get('/', portfolioController.getAllPortfolios);
 //GET full portfolio for one user
 router.get('/:id', portfolioController.getPortfolio);
 
-router.get("/test", (req, res) => {
-  requestify.get('https://forex-server.herokuapp.com/currency')
-    .then(function(response) {
-
-    res.send(response.getBody());
-  });
-})
-
 module.exports = router;
