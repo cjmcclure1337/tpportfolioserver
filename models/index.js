@@ -1,14 +1,29 @@
 const dbConfig = require('../config/dbConfig.js')
 const { Sequelize, DataTypes } = require('sequelize')
 
-//Initialize Sequelize using imported configurations
-const sequelize = new Sequelize({
-    database:dbConfig.DB,
-    username: dbConfig.USER,
-    password: dbConfig.PASSWORD,
-    dialect: dbConfig.dialect,
-    host: dbConfig.HOST
-})
+// construct the sequelize object using the constructor
+let sequelize = null;
+
+if (process && process.env.DATABASE_URL) {
+    sequelize = new Sequelize(process.env.DATABASE_URL, {
+        dialectOptions: {
+        ssl: {
+            require: true,
+            rejectUnauthorized: false
+            }
+            }
+        }
+    );
+} else {
+    sequelize = new Sequelize(
+    { // use imported configurations from dbConfig
+        database: dbConfig.DB,
+        username: dbConfig.USER,
+        password: dbConfig.PASSWORD,
+        dialect: dbConfig.dialect,
+        host: dbConfig.HOST,
+    })
+}
 
 //Test connection to DB
 sequelize.authenticate()
