@@ -4,17 +4,20 @@ const links = require("../config/externalLinks")
 
 
 const addStock = (req, res, next) => {
-    db.Stock.create({
-        symbol: req.body.symbol,
-        quantity: req.body.quantity,
-        purchasePrice: 100,
-        UserId: req.params.id
-      })
-        .then(newStockPosition => res.send(newStockPosition))
-        .catch(err => {
-            res.status(400);
-            res.send(err);
+    requestify.get(links.stockAPI + req.body.symbol)
+    .then((stock) => {
+        return db.Stock.create({
+            symbol: req.body.symbol,
+            quantity: req.body.quantity,
+            purchasePrice: stock.getBody().stock_value,
+            UserId: req.params.id
         });
+    })
+    .then(newStockPosition => res.send(newStockPosition))
+    .catch(err => {
+        res.status(400);
+        res.send(err);
+    });
 }
 
 const addCurrency = (req, res) => {
