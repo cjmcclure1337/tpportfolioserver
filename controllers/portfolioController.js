@@ -76,7 +76,7 @@ const getAllPortfolios = (req, res) => {
 }
 
 const getPortfolio = (req, res) => {
-    let userData = [];
+    let userData = {stocks: [], currencies: []};
     let currencies, stocks;
     db.User.findOne({
         where: {Id: req.params.id},
@@ -98,7 +98,7 @@ const getPortfolio = (req, res) => {
         //collates data from local db with data from Forex API
         resultsArray.map((response, i) => {
             let currency = response.getBody();
-            userData.push({
+            userData.currencies.push({
                 code: currencies[i].code,
                 name: currency.name,
                 symbol: currency.symbol,
@@ -119,7 +119,7 @@ const getPortfolio = (req, res) => {
         resultsArray.map((response, i) => {
             let stock = response.getBody();
             console.log(stock);
-            userData.push({
+            userData.stocks.push({
                 symbol: stocks[i].symbol,
                 purchasePrice: stocks[i].purchasePrice,
                 currentPrice: stock.stock_value,
