@@ -4,7 +4,7 @@ const links = require("../config/externalLinks")
 
 
 const addStock = (req, res, next) => {
-    requestify.get(links.stockAPI + req.body.symbol)
+    requestify.get(links.stockPriceAPI + req.body.symbol)
     .then((stock) => {
         return db.Stock.create({
             symbol: req.body.symbol,

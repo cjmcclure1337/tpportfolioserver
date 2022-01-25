@@ -37,7 +37,7 @@ const getAllPortfolios = (req, res) => {
         })
 
         let stockPromiseArray = stocks.map((stock) => {
-            return requestify.get(links.stockAPI + stock.symbol)
+            return requestify.get(links.stockPriceAPI + stock.symbol)
         })
 
         return Promise.all(stockPromiseArray)
@@ -109,7 +109,7 @@ const getPortfolio = (req, res) => {
         })
 
         let stockPromiseArray = stocks.map((stock) => {
-            return requestify.get(links.stockAPI + stock.symbol)
+            return requestify.get(links.stockInfoAPI + stock.symbol)
         })
 
         return Promise.all(stockPromiseArray)
@@ -122,8 +122,9 @@ const getPortfolio = (req, res) => {
             userData.stocks.push({
                 symbol: stocks[i].symbol,
                 purchasePrice: stocks[i].purchasePrice,
-                currentPrice: stock.stock_value,
-                quantity: stocks[i].quantity
+                currentPrice: stock.stock_value.stock_value,
+                quantity: stocks[i].quantity,
+                name: stock.stock_name
             })
         })
         res.send(userData)

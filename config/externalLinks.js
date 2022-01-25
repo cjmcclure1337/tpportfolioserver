@@ -1,4 +1,5 @@
 module.exports = {
     currencyAPI: "https://forex-server.herokuapp.com/currency/",
-    stockAPI: "https://boiling-falls-79972.herokuapp.com/current/"
+    stockPriceAPI: "https://boiling-falls-79972.herokuapp.com/current/",
+    stockInfoAPI: "https://boiling-falls-79972.herokuapp.com/info/"
 }
