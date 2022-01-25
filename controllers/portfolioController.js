@@ -32,7 +32,8 @@ const getAllPortfolios = (req, res) => {
                 purchasePrice: currencies[i].purchasePrice,
                 currentPrice: currency.lastPrice,
                 quantity: currencies[i].quantity,
-                userId: currencies[i].UserId
+                userId: currencies[i].UserId,
+                investmentID: currencies[i].id
             });
         })
 
@@ -52,7 +53,8 @@ const getAllPortfolios = (req, res) => {
                 purchasePrice: stocks[i].purchasePrice,
                 currentPrice: stock.stock_value,
                 quantity: stocks[i].quantity,
-                userId: stocks[i].UserId
+                userId: stocks[i].UserId,
+                investmentID: stocks[i].id
             })
         })
         
@@ -104,7 +106,8 @@ const getPortfolio = (req, res) => {
                 symbol: currency.symbol,
                 purchasePrice: currencies[i].purchasePrice,
                 currentPrice: currency.lastPrice,
-                quantity: currencies[i].quantity
+                quantity: currencies[i].quantity,
+                investmentID: currencies[i].id
             });
         })
 
@@ -124,7 +127,8 @@ const getPortfolio = (req, res) => {
                 purchasePrice: stocks[i].purchasePrice,
                 currentPrice: stock.stock_value.stock_value,
                 quantity: stocks[i].quantity,
-                name: stock.stock_name
+                name: stock.stock_name,
+                investmentID: stocks[i].id
             })
         })
         res.send(userData)
