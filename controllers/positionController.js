@@ -46,13 +46,13 @@ const removeStock = (req, res) => {
     db.Stock.destroy({
         where: {
             UserId: req.params.id,
-            id: req.body.id
+            id: req.query.id
         }
     })
         .then((countDeleted) => {
             if(countDeleted === 0) {
                 res.status(400);
-                res.send("No such record found")
+                throw new Error('Record not found')
             }
             res.send("Removed stock")
         })
@@ -66,20 +66,19 @@ const removeCurrency = (req, res) => {
     db.Currency.destroy({
         where: {
             UserId: req.params.id,
-            id: req.body.id
+            id: req.query.id
         }
     })
     .then((countDeleted) => {
         if(countDeleted === 0) {
-            res.status(400);
-            res.send("No such record found")
+            throw new Error('Record not found')
         }
         res.send("Removed currency")
     })
-        .catch(err => {
-            res.status(400);
-            res.send(err);
-        });
+    .catch(err => {
+        res.status(400);
+        res.send(err);
+    });
 }
 
 

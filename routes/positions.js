@@ -43,7 +43,8 @@ router.post("/:id/", (req, res, next) => {
 
 //DELETE specific investment position
 router.delete("/:id", (req, res, next) => {
-  switch(req.body.type.toLowerCase()) {
+  console.log("Delete Body: ", req.query)
+  switch(req.query.type.toLowerCase()) {
     
     case "stock":
       positionController.removeStock(req, res, next);
