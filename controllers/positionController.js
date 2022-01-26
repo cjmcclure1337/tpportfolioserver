@@ -54,7 +54,7 @@ const removeStock = (req, res) => {
                 res.status(400);
                 throw new Error('Record not found')
             }
-            res.send("Removed stock")
+            res.send()
         })
         .catch(err => {
             res.status(400);
@@ -73,7 +73,7 @@ const removeCurrency = (req, res) => {
         if(countDeleted === 0) {
             throw new Error('Record not found')
         }
-        res.send("Removed currency")
+        res.send()
     })
     .catch(err => {
         res.status(400);
