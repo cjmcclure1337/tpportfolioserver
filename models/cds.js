@@ -17,7 +17,7 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: false
         },
         openDate: {
-            type: DataTypes.DATE,
+            type: DataTypes.BIGINT,
             allowNull: false
         }
     })
