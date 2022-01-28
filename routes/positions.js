@@ -54,9 +54,7 @@ router.delete("/:id", (req, res, next) => {
       break;
 
     case "cd":
-      //TBD
-      console.log("Invalid type CD");
-      res.send("Invalid Type")
+      positionController.removeCD(req, res, next);
       break;
 
     case "mutualfund":

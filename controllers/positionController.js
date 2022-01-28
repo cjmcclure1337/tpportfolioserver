@@ -101,6 +101,25 @@ const removeCurrency = (req, res) => {
     });
 }
 
+const removeCD = (req, res) => {
+    db.CD.destroy({
+        where: {
+            UserId: req.params.id,
+            id: req.query.id
+        }
+    })
+    .then((countDeleted) => {
+        if(countDeleted === 0) {
+            throw new Error('Record not found')
+        }
+        res.send()
+    })
+    .catch(err => {
+        res.status(400);
+        res.send(err);
+    });
+}
+
 
 
 module.exports = {
@@ -108,5 +127,6 @@ module.exports = {
     addCurrency,
     addCD,
     removeStock,
-    removeCurrency
+    removeCurrency,
+    removeCD
 }

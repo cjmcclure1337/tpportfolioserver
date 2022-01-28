@@ -169,7 +169,8 @@ const getPortfolio = (req, res) => {
                 interestRate: cd.interestRate,
                 term: cd.term,
                 openDate: cd.openDate,
-                currentValue: currentValue
+                currentValue: currentValue,
+                investmentId: cd.id
             });
         });
 
