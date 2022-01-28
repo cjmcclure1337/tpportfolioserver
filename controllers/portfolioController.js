@@ -3,10 +3,13 @@ const requestify = require("requestify")
 const links = require("../config/externalLinks")
 
 const getAllPortfolios = (req, res) => {
-    let currencies, stocks;
+    let currencies, stocks, cds;
     let currencyData = [];
     let stockData = [];
+    let cdData = [];
     let userData = [];
+
+    //Retrieve each investment DB
     db.Currency.findAll()
     .then(results => {
         currencies = results;
@@ -14,7 +17,12 @@ const getAllPortfolios = (req, res) => {
     })
     .then(results => {
         stocks = results;
+        return db.CD.findAll();
+    })
+    .then((results) => {
+        cds = results;
 
+        //Make API calls and push results into data arrays
         let currencyPromiseArray = currencies.map((currency) => {
             return requestify.get(links.currencyAPI + currency.code);
         });
@@ -57,6 +65,23 @@ const getAllPortfolios = (req, res) => {
                 investmentID: stocks[i].id
             })
         })
+
+        //adds calculated values to CD data to create cdData array
+        cds.map((cd) => {
+            const now = new Date();
+            const year = 31557600000;
+            const duration = (now.getTime() > cd.openDate + cd.term) ? cd.term/year : (now.getTime()-cd.openDate)/year;
+            const currentValue = cd.deposit * Math.pow(1 + cd.interestRate, duration)
+            cdData.push({
+                deposit: cd.deposit,
+                interestRate: cd.interestRate,
+                term: cd.term,
+                openDate: cd.openDate,
+                currentValue: currentValue,
+                userId: cd.UserId
+            });
+        }); 
+        console.log("CD Data: ", cdData)
         
         return db.User.findAll();
     })
@@ -66,6 +91,7 @@ const getAllPortfolios = (req, res) => {
             user.userId = users[i].Id
             user.currencies = currencyData.filter((currency) => users[i].Id === currency.userId)
             user.stocks = stockData.filter((stock) => users[i].Id === stock.userId)
+            user.cds = cdData.filter((cd) => users[i].Id === cd.userId)
             userData.push(user);
         }
 
@@ -78,15 +104,16 @@ const getAllPortfolios = (req, res) => {
 }
 
 const getPortfolio = (req, res) => {
-    let userData = {stocks: [], currencies: []};
-    let currencies, stocks;
+    let userData = {stocks: [], currencies: [], cds: []};
+    let currencies, stocks, cds;
     db.User.findOne({
         where: {Id: req.params.id},
-        include: [db.Currency, db.Stock]
+        include: [db.Currency, db.Stock, db.CD]
     })
     .then(user => {
         currencies = user.Currencies;
         stocks = user.Stocks;
+        cds = user.CDs;
         //converts the currency array into arrays of promises calling APIs
         let currencyPromiseArray = currencies.map((currency) => {
             return requestify.get(links.currencyAPI + currency.code);
@@ -131,6 +158,22 @@ const getPortfolio = (req, res) => {
                 investmentID: stocks[i].id
             })
         })
+
+        cds.map((cd) => {
+            const now = new Date();
+            const year = 31557600000;
+            const duration = (now.getTime() > cd.openDate + cd.term) ? cd.term/year : (now.getTime()-cd.openDate)/year;
+            const currentValue = cd.deposit * Math.pow(1 + cd.interestRate, duration)
+            userData.cds.push({
+                deposit: cd.deposit,
+                interestRate: cd.interestRate,
+                term: cd.term,
+                openDate: cd.openDate,
+                currentValue: currentValue
+            });
+        });
+
+
         res.send(userData)
     })
     .catch(err => {
