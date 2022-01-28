@@ -2,6 +2,7 @@ const db = require("../models")
 
 
 const addUser = (req, res) => {
+    console.log("Body: ", req.body)
     db.User.create({
         Id: req.body.userId
       })
@@ -14,7 +15,7 @@ const addUser = (req, res) => {
 
 const getAllUsers = (req, res) => {
     db.User.findAll({
-        include: [db.Stock, db.Currency]
+        include: [db.Stock, db.Currency, db.CD]
     })
         .then(allUsers => res.send(allUsers))
         .catch(err => {

@@ -44,6 +44,7 @@ db.sequelize = sequelize;
 db.User = require('./users')(sequelize, DataTypes)
 db.Stock = require('./stocks')(sequelize, DataTypes)
 db.Currency = require('./currency')(sequelize, DataTypes)
+db.CD = require('./cds')(sequelize, DataTypes)
 
 // sync the db by running the model
 db.sequelize.sync({ force: false }).then(() => {
@@ -67,6 +68,16 @@ db.User.hasMany(db.Currency, {
 })
 
 db.Currency.belongsTo(db.User, {
+    foreignKey: {
+        allowNull: false
+    }
+});
+
+db.User.hasMany(db.CD, {
+    onDelete: "cascade"
+})
+
+db.CD.belongsTo(db.User, {
     foreignKey: {
         allowNull: false
     }
