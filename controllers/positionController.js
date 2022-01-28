@@ -1,6 +1,8 @@
 const db = require("../models")
 const requestify = require("requestify")
-const links = require("../config/externalLinks")
+const links = require("../config/externalLinks");
+const req = require("express/lib/request");
+const res = require("express/lib/response");
 
 
 const addStock = (req, res, next) => {
@@ -40,6 +42,24 @@ const addCurrency = (req, res) => {
             res.status(400);
             res.send(err);
         });
+}
+
+const addCD = (req, res) => {
+    const now = new Date();
+    db.CD.create({
+        deposit: req.body.deposit,
+        interestRate: req.body.interestRate,
+        term: req.body.term,
+        openDate: now.getTime(),
+        UserId: req.params.id
+    })
+    .then((newCDPosition) => {
+        res.send(newCDPosition);
+    })
+    .catch(err => {
+        res.status(400);
+        res.send(err);
+    });
 }
 
 const removeStock = (req, res) => {
@@ -86,6 +106,7 @@ const removeCurrency = (req, res) => {
 module.exports = {
     addStock,
     addCurrency,
+    addCD,
     removeStock,
     removeCurrency
 }

@@ -25,8 +25,7 @@ router.post("/:id/", (req, res, next) => {
       break;
 
     case "cd":
-      //TBD
-      console.log("Invalid type");
+      positionController.addCD(req, res, next);
       break;
 
     case "mutualfund":

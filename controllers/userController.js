@@ -27,7 +27,7 @@ const getAllUsers = (req, res) => {
 const getUser = (req, res, next) => {
     db.User.findOne({
         where: {Id: req.params.id},
-        include: [db.Stock, db.Currency]
+        include: [db.Stock, db.Currency, db.CD]
     })
         .then(user => res.send(user))
         .catch(err => {

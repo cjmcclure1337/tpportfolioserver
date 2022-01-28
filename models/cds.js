@@ -1,9 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
     const CD = sequelize.define("CD", {
-        Id: {
-            type: DataTypes.INTEGER,
-            allowNull: false
-        },
         deposit: {
             type: DataTypes.DOUBLE,
             allowNull: false
@@ -13,7 +9,7 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: false
         },
         term: {
-            type: DataTypes.DOUBLE,
+            type: DataTypes.BIGINT,
             allowNull: false
         },
         openDate: {
